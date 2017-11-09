@@ -1,13 +1,22 @@
 package com.uway.springboot.boot;
 
+import com.uway.springboot.boot.dao.UserInfoRepository;
 import com.uway.springboot.boot.dao.jdbcTemplate.DemoTemplate;
 import com.uway.springboot.boot.entity.BootTableDemo;
 import com.uway.springboot.boot.entity.RedisInfo;
+import com.uway.springboot.boot.entity.Role;
+import com.uway.springboot.boot.entity.UserInfo;
 import com.uway.springboot.boot.service.DemoService;
 import com.uway.springboot.boot.service.RedisInfoService;
+import com.uway.springboot.boot.service.UserInfoService;
 import com.uway.springboot.boot.util.BeanUtil;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -16,6 +25,7 @@ import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@MapperScan("com.uway.springboot.boot.mapper")
 public class BootApplicationTests {
 	@Autowired
 	private DemoService demoService;
@@ -23,7 +33,10 @@ public class BootApplicationTests {
 	private DemoTemplate demoTemplate;
 	@Autowired
 	private RedisInfoService redisInfoService;
-
+	@Autowired
+	private UserInfoService userInfoService;
+	@Autowired
+	private UserInfoRepository userInfoRepository;
 	@Test
 	public void save() {
 		BootTableDemo bootTableDemo = new BootTableDemo();
@@ -55,8 +68,14 @@ public class BootApplicationTests {
 	}
 	@Test
 	public void deleteFromCache(){
-
+		redisInfoService.deleteFromCache(2L);
 	}
 
+	@Test
+	public void getUserInfo(){
+		UserInfo userInfo = userInfoService.findByUsername("admin");
+		System.out.println(userInfo);
+
+	}
 
 }

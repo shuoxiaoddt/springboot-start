@@ -28,7 +28,6 @@ import java.time.Duration;
  * Created by uwayxs on 2017/11/6.
  */
 @Configuration
-@EnableCaching
 public class RedisCustomConfiguration{
 
 

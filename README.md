@@ -40,3 +40,37 @@ GET-/application/health-查看应用健康指标-false
 /application,/application/status,/application/info这几项配置,如果需要开启更多配置,则可以在application.properties中使用
 endpoints.beans.enabled=true 开启(这是开启beans的链接)
 endpoints.default.enabled=true可以开启默认的三个监控
+##十一、关于JPA多对多查询
+对于属性是List的,Herbnate默认使用懒加载,可以在@ManyToMany注解中加上
+fetch=FetchType.EARGE,取消懒加载,就能直接获取List的数据
+##十二、Spring框架的主要Hook
+Spring框架有三个主要的Hook(钩子,回调)类
+`org.springframework.context.ApplicationContextAware `,他的setApplicationContext方法是第一个被调用的
+`org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor` ,他的postProcessBeanDefinitionRegistry 和 postProcessBeanFactory方法是第二、第三哥被个被调用的
+它们在Bean初始化创建之前启动，如果Spring的bean需要的其他第三方中的组件，我们在这里将其注入给Spring。
+`org.springframework.context.ApplicationListener `,用于在初始化完成后做一些事情,当Spring所有XML或元注解的Bean都启动被创建成功了，这时会调用它的唯一方法onApplicationEvent。
+##十二、验证Validate
+##十三、SLF4J(Simple Logging Facade For Java)
+SLF4J配置使用logback.xml,效率比log4j高
+##十四、Spring Boot mybatis
+    <dependency>
+        <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-starter</artifactId>
+        <version>1.1.1</version>
+    </dependency>
+启动类中加上@MapperScan("com.*.*.mapper")注解,可以扫面mapper文件
+分页插件PageHelper
+##十五、Spring Boot AOP
+与纯粹的Spring Framework不同的是Spring Boot AOP不需要@EnableAspectJAutoProxy
+spring.aop.auto 默认为true,只要导入aop的starter,aop就会自动开启
+AOP默认使用的是jdk的动态代理,可以用通过使用
+spring.aop.proxy-target-class=true 使用CGLIB的动态代理
+@Aspect注解将一个java类定义为切面类
+@Pointcut定义一个切入点，可以是一个规则表达式，比如下例中某个package下的所有函数，也可以是一个注解等。
+根据需要在切入点不同位置的切入内容
+@Before在切入点开始处切入内容
+@After在切入点结尾处切入内容
+@AfterReturning在切入点return内容之后切入内容（可以用来对处理返回值做一些加工处理）
+@Around在切入点前后切入内容，并自己控制何时执行切入点自身的内容
+@AfterThrowing用来处理当切入内容部分抛出异常之后的处理逻辑
+##RequestContextHolder持有Request的信息

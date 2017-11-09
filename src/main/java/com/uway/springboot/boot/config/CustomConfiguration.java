@@ -1,11 +1,10 @@
 package com.uway.springboot.boot.config;
 
+import javax.servlet.MultipartConfigElement;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.servlet.MultipartConfigElement;
-import javax.servlet.annotation.MultipartConfig;
 
 /**
  * Created by uwayxs on 2017/11/4.
