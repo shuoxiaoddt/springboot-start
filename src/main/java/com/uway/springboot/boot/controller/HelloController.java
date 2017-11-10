@@ -16,5 +16,10 @@ public class HelloController {
         map.put("hello","from TemplateController.helloHtml");
         return "/hello.html";
     }
+    @RequestMapping("/changeLocale")
+    public String changeLocale(Map<String,Object> map){
+        map.put("hello","from TemplateController.helloHtml");
+        return "/changeLocale.html";
+    }
 
 }

@@ -1,31 +1,32 @@
 package com.uway.springboot.boot;
 
+import com.uway.springboot.boot.async.AsyncMothod;
 import com.uway.springboot.boot.dao.UserInfoRepository;
 import com.uway.springboot.boot.dao.jdbcTemplate.DemoTemplate;
 import com.uway.springboot.boot.entity.BootTableDemo;
+import com.uway.springboot.boot.entity.PropEntity;
 import com.uway.springboot.boot.entity.RedisInfo;
-import com.uway.springboot.boot.entity.Role;
 import com.uway.springboot.boot.entity.UserInfo;
+import com.uway.springboot.boot.mail.CustomerMailSender;
 import com.uway.springboot.boot.service.DemoService;
 import com.uway.springboot.boot.service.RedisInfoService;
 import com.uway.springboot.boot.service.UserInfoService;
 import com.uway.springboot.boot.util.BeanUtil;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @MapperScan("com.uway.springboot.boot.mapper")
+@EnableAsync
+@EnableConfigurationProperties(PropEntity.class)
 public class BootApplicationTests {
 	@Autowired
 	private DemoService demoService;
@@ -37,6 +38,12 @@ public class BootApplicationTests {
 	private UserInfoService userInfoService;
 	@Autowired
 	private UserInfoRepository userInfoRepository;
+	@Autowired
+	private CustomerMailSender customerMailSender;
+	@Autowired
+	private AsyncMothod asyncMothod;
+	@Autowired
+	private PropEntity propEntity;
 	@Test
 	public void save() {
 		BootTableDemo bootTableDemo = new BootTableDemo();
@@ -77,5 +84,24 @@ public class BootApplicationTests {
 		System.out.println(userInfo);
 
 	}
+	@Test
+	public void sendMail(){
+		customerMailSender.sendSimpleMail();
+	}
+	@Test
+	public void async(){
+		asyncMothod.task1();
+		asyncMothod.task2();
+		asyncMothod.task3();
+		try {
+			Thread.sleep(Integer.MAX_VALUE);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
+	}
+	@Test
+	public void properties(){
+		System.out.println(propEntity);
+	}
 }

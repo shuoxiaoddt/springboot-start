@@ -1,12 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" >
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <title>hello spring boot</title>
 </head>
 <body>
-    <h1 th:inline="text">hello.v.2</h1>
-    <!--/*@thymesVar id="hello" type="java"*/-->
-    <p th:text="${hello}"></p>
+<p><label th:text="#{welcome}"></label></p>
 </body>
-</html>

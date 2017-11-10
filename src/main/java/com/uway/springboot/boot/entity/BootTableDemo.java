@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by uwayxs on 2017/11/1.
@@ -12,7 +13,7 @@ import javax.persistence.Id;
 public class BootTableDemo {
     @Id @GeneratedValue
     private long id;
-
+    @NotNull
     @Column(nullable = false)
     private String name;
 

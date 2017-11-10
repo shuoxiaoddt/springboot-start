@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  *  @SpringBootApplication = @Configuration + @EnableAutoConfiguration + @ComponentScan
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @SpringBootApplication
 @ServletComponentScan//加次配置可以扫描到自己书写的servlet和filter
 @EnableCaching
+@EnableAsync
 public class BootStrapApplication {
 
 	public static void main(String[] args) {
